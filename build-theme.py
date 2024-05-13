@@ -47,6 +47,12 @@ def data_rgb_to_hex(dictio, key, value):
                 k=key, v=dictio[key]))
 
 
+def hex_to_rgb(color):
+    """Convert a hex color to rgb."""
+    tup = tuple(bytes.fromhex(color.strip("#")))
+    return "%d, %d, %d" % (*tup,)
+
+
 ########
 # Main #
 ########
