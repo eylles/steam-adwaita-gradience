@@ -62,6 +62,9 @@ parser = argparse.ArgumentParser()
 
 # Adding optional argument
 parser.add_argument("-f", "--file", required="true", help="JSON file to use")
+parser.add_argument("-n", "--name", dest="name",
+                    help="theme name, will default to "
+                         "gradience if not provided")
 parser.add_argument("-d", "--debug", action='store_true',
                     help="Show Debug Output")
 
@@ -105,7 +108,10 @@ if args.debug:
     for keys, values in colsrgb.items():
         print("{k: >24}: {v}".format(k=keys, v=values))
 
-theme = "gradience"
+if args.name:
+    theme = args.name
+else:
+    theme = "gradience"
 
 username = os.environ['USER']
 home_dir = os.environ.get('HOME', '/home/{}'.format(username))
