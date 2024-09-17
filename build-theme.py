@@ -10,6 +10,7 @@ import os
 # functions #
 #############
 
+
 def data_sub_link(dictio, key, value):
     """
     return type: void
@@ -36,15 +37,14 @@ def data_rgb_to_hex(dictio, key, value):
         oparen = value.find("(")
         cparen = value.find(")")
         # index_str = value[1:]
-        vallist = value[oparen+1:cparen].split(",")
+        vallist = value[oparen + 1 : cparen].split(",")
         r = int(vallist[0])
         g = int(vallist[1])
         b = int(vallist[2])
         res = "#{0:02x}{1:02x}{2:02x}".format(r, g, b)
         dictio[key] = res
         if args.debug:
-            print("{k}: {v}".format(
-                k=key, v=dictio[key]))
+            print("{k}: {v}".format(k=key, v=dictio[key]))
 
 
 def hex_to_rgb(color):
@@ -62,11 +62,15 @@ parser = argparse.ArgumentParser()
 
 # Adding optional argument
 parser.add_argument("-f", "--file", required="true", help="JSON file to use")
-parser.add_argument("-n", "--name", dest="name",
-                    help="theme name, will default to "
-                         "gradience if not provided")
-parser.add_argument("-d", "--debug", action='store_true',
-                    help="Show Debug Output")
+parser.add_argument(
+    "-n",
+    "--name",
+    dest="name",
+    help="theme name, will default to " "gradience if not provided",
+)
+parser.add_argument(
+    "-d", "--debug", action="store_true", help="Show Debug Output"
+)
 
 # Read arguments from command line
 args = parser.parse_args()
@@ -113,8 +117,8 @@ if args.name:
 else:
     theme = "gradience"
 
-username = os.environ['USER']
-home_dir = os.environ.get('HOME', '/home/{}'.format(username))
+username = os.environ["USER"]
+home_dir = os.environ.get("HOME", "/home/{}".format(username))
 
 adwsteamgtk = "{}/.var/app/io.github.Foldex.AdwSteamGtk".format(home_dir)
 adwtheme = "{}/cache/AdwSteamInstaller/extracted/adwaita".format(adwsteamgtk)
@@ -128,7 +132,7 @@ if args.debug:
 if not os.path.exists(target_dir):
     os.makedirs(target_dir)
 
-template = '''\
+template = """\
 :root {{
     /* The main accent color and the matching text value */
     --adw-accent-bg-rgb: {accent_bg_color};
@@ -210,9 +214,11 @@ template = '''\
     --adw-shade-rgb: {shade_color};
     --adw-shade-a: 0.36;
 }}\
-'''.format(**colsrgb)
+""".format(
+    **colsrgb
+)
 
 # print(template)
 
-with open(target_file, 'w') as file:
+with open(target_file, "w") as file:
     file.write(template)
